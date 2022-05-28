@@ -18,7 +18,6 @@ export const ContentTitle = styled.View`
 export const Title = styled.Text`
     font-size: 24px;
     font-weight: bold;
-    font-family: 'Poppins_600SemiBold';
     color: #32264D;
 `;
 

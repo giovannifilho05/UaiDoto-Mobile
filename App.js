@@ -1,9 +1,9 @@
 import React from 'react';
-import {
-    useFonts,
-    Poppins_400Regular,
-    Poppins_600SemiBold,
-} from '@expo-google-fonts/poppins';
+// import {
+//     useFonts,
+//     Poppins_400Regular,
+//     Poppins_600SemiBold,
+// } from '@expo-google-fonts/poppins';
 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,17 +16,17 @@ import MainStack from './src/stacks/MainStack'
 
 
 export default () => {
-    let [fontsLoaded] = useFonts({
-        Poppins_400Regular,
-        Poppins_600SemiBold,
-    });
+    // let [fontsLoaded] = useFonts({
+    //     Poppins_400Regular,
+    //     Poppins_600SemiBold,
+    // });
 
-    if (!fontsLoaded) {
-        return (
-            <></>
-            // <AppLoading />
-        );
-    } else {
+    // if (!fontsLoaded) {
+    //     return (
+    //         <></>
+    //         // <AppLoading />
+    //     );
+    // } else {
         return (
             <UserContextProvider>
                 <NavigationContainer>
@@ -36,5 +36,5 @@ export default () => {
                 </NavigationContainer>
             </UserContextProvider>
         );
-    }
+    // }
 } 

@@ -3,8 +3,7 @@ import { InputArea, Input } from './styles';
 
 export default ({ ...props }) => {
     return (
-        <InputArea>
-            {/* <Icon fill='#9C98A6'/> */}
+        <InputArea> 
             <Input {...props} />
         </InputArea>
     );

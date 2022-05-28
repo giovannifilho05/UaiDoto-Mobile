@@ -1,9 +1,20 @@
-import styled from  'styled-components/native';
+import styled from 'styled-components/native';
 
 export const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
-` ;
+`;
+
+export const MotivationTextContainer = styled.View`
+    
+`;
+
+export const MotivationTextTitle = styled.Text`
+    font-size: 24px;
+`;
+export const MotivationText = styled.Text`
+    font-size: 18px;
+`;
 
 export const ContentTitle = styled.View`
     width:100%;
@@ -18,7 +29,6 @@ export const ContentTitle = styled.View`
 export const Title = styled.Text`
     font-size: 24px;
     font-weight: bold;
-    font-family: 'Poppins_600SemiBold';
     color: #32264D;
 `;
 
@@ -30,9 +40,14 @@ export const LinkButtomText = styled.Text`
     color: ${props => props.theme.main};
 `;
 
-export const  InputArea = styled.View`
+export const InputArea = styled.View`
     padding: 40px 20px;
     width: 100%;
+`;
+
+export const CustomView = styled.View`
+    flex-direction: row;
+    justify-content: space-around;
 `;
 
 export const CustomButton = styled.TouchableOpacity`
@@ -41,7 +56,11 @@ export const CustomButton = styled.TouchableOpacity`
     margin-top: 40px;
     justify-content: center;
     align-items: center;
-    background-color: ${(props) => props.disabled ? '#DCDCE5' : props.theme.main };
+    background-color: ${(props) => props.disabled ? '#DCDCE5' : props.theme.main};
+`;
+
+export const CustonText = styled.Text`
+    margin-left: 5px;
 `;
 
 export const CustomButtonText = styled.Text`
