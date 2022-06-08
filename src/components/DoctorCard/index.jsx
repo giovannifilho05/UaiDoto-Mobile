@@ -17,8 +17,8 @@ export default function DoctorCard({ doctor }) {
         <PersonalData >
           <Name>{doctor.name}</Name>
           <Data>{doctor.specialty}</Data>
-          <Data>{`${doctor.address.street}, nº ${doctor.address.number}}`}</Data>
-          <Data>{doctor.address.city}</Data>
+          <Data>{`${doctor.address?.street}, nº ${doctor.address?.number}}`}</Data>
+          <Data>{doctor.address?.city}</Data>
         </PersonalData>
       </Content>
     </Container>

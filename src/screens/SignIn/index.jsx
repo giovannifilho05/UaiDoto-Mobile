@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from "jwt-decode";
 
 import submitLogin from '../../api/signIn';
 import { testRegex } from '../../utils/fieldTreatment';
-import { storeData, getStoreData } from '../../utils/token';
 
 import {
   Container,
@@ -48,9 +48,8 @@ export default () => {
         .then(async ({ token, refresh_token }) => {
           if (token) {
             console.log('Salvando tokens: ', token)
-            await storeData({ name: '@UaiDoto_token', value: token })
-            await storeData({ name: '@UaiDoto_refresh_token', value: refresh_token })
-
+            await AsyncStorage.setItem('@UaiDoto_token', token)
+            await AsyncStorage.setItem('@UaiDoto_refreshToken', refresh_token)
             console.log('Tokens salvos')
           } else {
             throw new Error('Usuário não encontrado.')

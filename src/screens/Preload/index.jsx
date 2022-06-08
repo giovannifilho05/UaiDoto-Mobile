@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import InitialImage from '../../assets/inicialImage.svg';
 
 import styled from 'styled-components/native';
-import { getStoreData } from '../../utils/token';
 
 const Container = styled.SafeAreaView`
   background-color: ${props => props.theme.main};
@@ -21,7 +21,7 @@ export default function Preload() {
   useEffect(() => {
     const checkToken = async () => {
       try {
-        const token = await getStoreData('@UaiDoto_token')
+        const token = await AsyncStorage.getItem('@UaiDoto_token')
 
         if (token) {
           //Validar token
@@ -31,6 +31,7 @@ export default function Preload() {
           navigation.navigate('SignIn');
         }
       } catch (error) {
+        console.error(error);
         alert('Erro ao tentar ler o token de acesso, tente novamente.')
       }
     }

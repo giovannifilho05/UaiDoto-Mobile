@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Input from '../../components/Input'
 import DropDown from '../../components/DropDown'
@@ -17,10 +18,11 @@ export default function SearchDoctor() {
   const [doctors, setDoctors] = useState([])
 
   useEffect(() => {
+    console.log('useEffect SearchDoctor')
     getSpecialties()
       .then(specialties => {
-        const ranamedSpecialties = specialties.map(specialty => ({ label: specialty.specialty, value: specialty.id }))
-        setSpecialties(ranamedSpecialties)
+        // console.log(specialties)
+        setSpecialties(specialties)
       })
       .catch(err => console.error(err))
 
@@ -34,8 +36,10 @@ export default function SearchDoctor() {
 
     search()
       .then((doctors) => {
+        // console.log(doctors)
         setDoctors(doctors)
       })
+      .catch(err => console.error(err))
 
   }, [])
 

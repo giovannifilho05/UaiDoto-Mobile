@@ -1,16 +1,16 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = "http://localhost:8080";
+const baseURL = "https://uai-doto-backend.herokuapp.com";
 
 const api = axios.create({
   baseURL: baseURL
 });
 
-
 api.interceptors.request.use(
   async config => {
-    const token = await AsyncStorage.getItem('token')
+    const token = await AsyncStorage.getItem('@UaiDoto_token')
+    
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -24,11 +24,11 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (success) => success,
   async (error) => {
-    const token = await AsyncStorage.getItem('token')
+    const refreshToken = await AsyncStorage.getItem('@UaiDoto_refreshToken')
     if (error.response.status === 401) {
       axios.post(`${baseURL}/users/refresh-token`, null, {
         headers: {
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${refreshToken}`
         }
       })
         .then(response => {
