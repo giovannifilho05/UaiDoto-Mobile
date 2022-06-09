@@ -29,11 +29,11 @@ export default function DropDown({ style, label, items, value, setValue, isFirst
     <Container isFirst={isFirst}>
       <Picker
         selectedValue={value}
-        onValueChange={(value) => setValue(value)}
+        onValueChange={(value) =>  setValue(value) }
         mode="dropdown"
         style={styles.picker}
       >
-        <Picker.Item label={label} value="Unknown" />
+        <Picker.Item label={label} value={null} />
 
         {
           items.map(({ label, value }, index) => (

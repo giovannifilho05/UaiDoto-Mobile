@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Input from '../../components/Input'
 import DropDown from '../../components/DropDown'
@@ -11,17 +10,17 @@ import getSpecialties from '../../api/doctors/specialties'
 import search from '../../api/doctors/search'
 
 export default function SearchDoctor() {
-  const [specialties, setSpecialties] = useState([])
-  const [cities, setCities] = useState([])
+  const [name, setName] = useState('')
   const [specialty, setSpecialty] = useState('')
   const [city, setCity] = useState('')
+  const [specialties, setSpecialties] = useState([])
+  const [cities, setCities] = useState([])
   const [doctors, setDoctors] = useState([])
 
   useEffect(() => {
     console.log('useEffect SearchDoctor')
     getSpecialties()
       .then(specialties => {
-        // console.log(specialties)
         setSpecialties(specialties)
       })
       .catch(err => console.error(err))
@@ -36,12 +35,26 @@ export default function SearchDoctor() {
 
     search()
       .then((doctors) => {
-        // console.log(doctors)
         setDoctors(doctors)
       })
       .catch(err => console.error(err))
 
   }, [])
+
+  useEffect(() => {
+    console.log(specialty)
+    search({
+      params: {
+        name,
+        specialty,
+        // city,
+      }
+    })
+      .then((doctors) => {
+        setDoctors(doctors)
+      })
+      .catch(err => console.error(err))
+  }, [name, specialty, city])
 
   return (
     <Container>
@@ -49,6 +62,8 @@ export default function SearchDoctor() {
         <SearchMenu>
           <Input
             placeholder="Digite um nome"
+            onChangeText={name => setName(name)}
+            setValue={name}
           />
           <DropDownArea>
             <DropDown

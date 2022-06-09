@@ -6,7 +6,7 @@ export default async function getSpecialties() {
   
   if(result.status === 200) {
     const specialties = result.data
-    const ranamedSpecialties = specialties.map(specialty => ({ label: specialty.specialty, value: specialty.id }))
+    const ranamedSpecialties = specialties.map(specialty => ({ label: specialty.specialty, value: specialty.specialty }))
     
     return ranamedSpecialties
   }

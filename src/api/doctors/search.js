@@ -6,7 +6,6 @@ export default async function search(data = {}) {
     console.log(`searchDoctors > Status ${result.status}`)
 
     if(result.status === 200) {
-      console.log(result.data)
       return result.data?.content
     }
 

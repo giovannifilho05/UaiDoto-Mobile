@@ -45,13 +45,11 @@ export default function ScheduleAppointment({ route }) {
           setDate={setDate}
         />
 
-        {/* {avaliableTime.length > 0 && */}
-          <OpeningHours
-            avaliableTime={avaliableTime}
-            time={time}
-            setTime={setTime}
-          />
-        {/* } */}
+        <OpeningHours
+          avaliableTime={avaliableTime}
+          time={time}
+          setTime={setTime}
+        />
 
         <Button
           label='Confirmar'
