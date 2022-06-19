@@ -7,7 +7,7 @@ import DoctorCard from '../../components/DoctorCard'
 
 import { Container, Content, SearchMenu, DropDownArea, CardArea } from './styles'
 import getSpecialties from '../../api/doctors/specialties'
-import search from '../../api/doctors/search'
+import searchDoctors from '../../api/doctors/searchDoctors'
 
 export default function SearchDoctor() {
   const [name, setName] = useState('')
@@ -33,7 +33,7 @@ export default function SearchDoctor() {
       { label: 'São Bernardo do Campo', value: '5' },
     ])
 
-    search()
+    searchDoctors()
       .then((doctors) => {
         setDoctors(doctors)
       })
@@ -43,7 +43,7 @@ export default function SearchDoctor() {
 
   useEffect(() => {
     console.log(specialty)
-    search({
+    searchDoctors({
       params: {
         name,
         specialty,

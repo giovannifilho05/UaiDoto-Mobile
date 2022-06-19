@@ -1,11 +1,14 @@
-import { Text } from "react-native";
+import MedicineCard from '../../components/MedicineCard'
 
-import { Container } from "./styles";
+import { Container , Content , Header , Texto} from "./styles";
 
 export default function MyMedicines() {
   return(
     <Container>
-      <Text>MyMedicines</Text>
-    </Container>
+      <Content>
+      <Header><Texto>Diário</Texto></Header>
+      <MedicineCard></MedicineCard>
+      </Content>
+      </Container>
   )
 }
