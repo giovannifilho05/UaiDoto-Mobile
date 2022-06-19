@@ -1,9 +1,11 @@
 import { Container, Content, Label } from "./styles";
 
-export default function Button({ label }) {
+export default function Button({ label, ...props }) {
   return (
     <Container>
-      <Content>
+      <Content
+      {...props}
+      >
         <Label>{label}</Label>
       </Content>
     </Container>

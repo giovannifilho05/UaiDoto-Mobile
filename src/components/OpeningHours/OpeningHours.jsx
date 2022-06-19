@@ -3,11 +3,21 @@ import { Text } from 'react-native';
 
 import { Container, Content, TimeAvailable, TimeAvailableText } from "./styles";
 
-export default function OpeningHours({avaliableTime, time, setTime}) {
+function formatTime(time) {
+  let formattedHour = time.split(':')[0].length === 1 ? '0' + time.split(':')[0] : time.split(':')[0]
+  let formattedMinute = time.split(':')[1].length === 1 ? time.split(':')[1].toString() + '0' : time.split(':')[1]
+
+  let formattedTime = formattedHour + ':' + formattedMinute
+
+  return formattedTime
+}
+
+export default function OpeningHours({ avaliableTime, setTime }) {
   const [active, setActive] = useState(1);
 
   function handleActive(index, time) {
     setActive(index)
+    setTime(time)
   }
 
   return (
@@ -18,10 +28,10 @@ export default function OpeningHours({avaliableTime, time, setTime}) {
         {avaliableTime.map((time, index) => (
           <TimeAvailable
             key={index}
-            onPress={() => handleActive(index, time)}
+            onPress={() => handleActive(index, formatTime(time))}
             active={active === index}
           >
-            <TimeAvailableText >{time}</TimeAvailableText>
+            <TimeAvailableText >{formatTime(time)}</TimeAvailableText>
           </TimeAvailable>
         ))}
 

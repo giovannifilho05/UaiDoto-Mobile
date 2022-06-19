@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import Input from '../../components/Input'
 import DropDown from '../../components/DropDown'
@@ -92,12 +92,17 @@ export default function SearchDoctor() {
 
         <CardArea>
           <View>
-            {doctors.map(doctor => (
-              <DoctorCard
-                key={doctor.id}
-                doctor={doctor}
-              />
-            ))}
+            {
+              doctors.length > 0 &&
+              doctors.map(doctor => (
+                <DoctorCard
+                  key={doctor.id}
+                  doctor={doctor}
+                />
+              ))
+            }
+
+            {doctors.length === 0 && <Text>Nenhum médico encontrado.</Text>}
           </View>
         </CardArea>
       </Content>
