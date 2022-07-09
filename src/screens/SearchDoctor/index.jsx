@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { useState, useEffect, useCallback } from 'react'
+import { View, Text, RefreshControl } from 'react-native'
 
 import Input from '../../components/Input'
 import DropDown from '../../components/DropDown'
@@ -7,15 +7,32 @@ import DoctorCard from '../../components/DoctorCard'
 
 import { Container, Content, SearchMenu, DropDownArea, CardArea } from './styles'
 import getSpecialties from '../../api/doctors/specialties'
+import getCities from '../../api/doctors/cities'
 import searchDoctors from '../../api/doctors/searchDoctors'
 
 export default function SearchDoctor() {
+  const [refreshing, setRefreshing] = useState(false)
+
   const [name, setName] = useState('')
   const [specialty, setSpecialty] = useState('')
   const [city, setCity] = useState('')
   const [specialties, setSpecialties] = useState([])
   const [cities, setCities] = useState([])
   const [doctors, setDoctors] = useState([])
+
+  async function getDoctors() {
+    return searchDoctors({
+      params: {
+        name,
+        specialty,
+        city,
+      }
+    })
+      .then((doctors) => {
+        setDoctors(doctors)
+      })
+      .catch(err => console.error(err))
+  }
 
   useEffect(() => {
     console.log('useEffect SearchDoctor')
@@ -25,36 +42,26 @@ export default function SearchDoctor() {
       })
       .catch(err => console.error(err))
 
-    setCities([
-      { label: 'São João del Rei', value: '1' },
-      { label: 'São Pedro', value: '2' },
-      { label: 'São Luís', value: '3' },
-      { label: 'São Vicente', value: '4' },
-      { label: 'São Bernardo do Campo', value: '5' },
-    ])
-
-    searchDoctors()
-      .then((doctors) => {
-        setDoctors(doctors)
-      })
-      .catch(err => console.error(err))
+    getCities()
+    .then(cities => {
+      setCities(cities)
+    })
+    .catch(err => console.error(err))
 
   }, [])
 
   useEffect(() => {
-    console.log(specialty)
-    searchDoctors({
-      params: {
-        name,
-        specialty,
-        // city,
-      }
-    })
-      .then((doctors) => {
-        setDoctors(doctors)
-      })
-      .catch(err => console.error(err))
+    getDoctors()
   }, [name, specialty, city])
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+    console.log('Refreshing...')
+
+    getDoctors()
+    .then(() => setRefreshing(false))
+   
+  }, [])
 
   return (
     <Container>
@@ -90,7 +97,14 @@ export default function SearchDoctor() {
           </DropDownArea>
         </SearchMenu>
 
-        <CardArea>
+        <CardArea
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
+        >
           <View>
             {
               doctors.length > 0 &&

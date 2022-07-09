@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useState } from "react";
 import { Text, Modal } from "react-native";
 
@@ -18,7 +19,12 @@ import {
 } from "./styles";
 
 export default function MedicineCard({ medicine, onTakingMedicine }) {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false)
+
+  const lastTakenDose = new Date(medicine.lastTakenDose)
+  const nextDoseDate = new Date(medicine.lastTakenDose)
+  nextDoseDate.setHours(lastTakenDose.getHours() + medicine.gap)
+
   return (
     <Container>
       <Content>
@@ -57,7 +63,7 @@ export default function MedicineCard({ medicine, onTakingMedicine }) {
           </MedicineInfo>
           <ClockImg></ClockImg>
           <MedicineTime>
-            <Text>22:45</Text>
+            <Text>{moment(nextDoseDate).format('HH:mm')}</Text>
           </MedicineTime>
         </MedicineData>
         <Confirm onPress={() => setModalVisible(true)}>

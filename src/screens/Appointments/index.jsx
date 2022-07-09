@@ -24,8 +24,9 @@ function getStatus({ active, finished, processed }) {
 }
 
 export default function Appointments() {
+  const [refreshing, setRefreshing] = useState(false)
+  
   const [appointments, setAppointments] = useState([])
-  const [refreshing, setRefreshing] = useState(false);
 
   async function getAllAppointments() {
     const { sub: patientId } = await getPatientData()
