@@ -50,7 +50,7 @@ export async function getAppointments(patientId) {
   return {}
 }
 
-export default async function handleAppointment(appointment, params) {
+export async function handleAppointment(appointment, params) {
   const formatedAppointment = { ...appointment, processed: true, ...params };
   const result = await api.put('/appointments', formatedAppointment)
 

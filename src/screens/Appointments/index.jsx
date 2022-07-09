@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { RefreshControl } from 'react-native'
+import { useState, useEffect, useCallback } from 'react'
 
 import { getAppointments } from '../../api/appointments'
 import { getPatientData } from '../../utils/patient'
@@ -24,33 +25,48 @@ function getStatus({ active, finished, processed }) {
 
 export default function Appointments() {
   const [appointments, setAppointments] = useState([])
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function getAllAppointments() {
+    const { sub: patientId } = await getPatientData()
+
+    const appointments = await getAppointments(patientId)
+    console.log(appointments)
+    setAppointments(appointments)
+  }
 
   useEffect(() => {
-    async function getAllAppointments() {
-      const { sub: patientId } = await getPatientData()
-
-      const appointments = await getAppointments(patientId)
-      console.log(appointments)
-      setAppointments(appointments)
-    }
     getAllAppointments()
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+    console.log('Refreshing...')
+    
+    getAllAppointments()
+      .then(() => setRefreshing(false))
   }, [])
 
   return (
     <Container>
-      <Content>
+      <Content
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
         {appointments.map((appointment, index) => {
           return (
             <AppointmentCard
               key={index}
               status={getStatus(appointment)}
               appointment={appointment}
-              // doctorName={appointment.doctorName}
-              // time={moment(appointment.dateTime).format('HH:mm')}
-              // date={moment(appointment.dateTime).format('DD/MM/YYYY')}
             />
           )
         })}
+
       </Content>
     </Container>
   )
