@@ -48,8 +48,11 @@ export default () => {
         .then(async ({ token, refresh_token }) => {
           if (token) {
             console.log('Salvando tokens: ', token)
+
             await AsyncStorage.setItem('@UaiDoto_token', token)
             await AsyncStorage.setItem('@UaiDoto_refreshToken', refresh_token)
+            
+            
             console.log('Tokens salvos')
           } else {
             throw new Error('Usuário não encontrado.')

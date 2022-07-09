@@ -4,7 +4,7 @@ import api from "./api"
 
 export default async function refreshToken() {
 
-  const res = await api.post('/users/refresh-token')
+  const res = await api.get('/users/refresh-token')
   console.log('refreshToken > Status', res.status)
 
   if (res.status === 200) {
@@ -12,7 +12,9 @@ export default async function refreshToken() {
 
     await AsyncStorage.setItem('@UaiDoto_token', token)
     await AsyncStorage.setItem('@UaiDoto_refreshToken', refresh_token)
-  }
 
-  return res.status
+    return Promise.resolve()
+  }
+  
+  return Promise.reject()
 }

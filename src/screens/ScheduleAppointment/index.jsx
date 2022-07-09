@@ -7,7 +7,7 @@ import Button from "../../components/Button"
 
 import { Container, Content } from "./syles"
 import { generateDoctorSchedules } from '../../utils/generateDoctorSchedules'
-import createAppointments from '../../api/appointments/createAppointments'
+import {createAppointments} from '../../api/appointments'
 import { getPatientData } from '../../utils/patient'
 
 const Days = [
@@ -19,11 +19,6 @@ const Days = [
   'FRIDAY',
   'SATURDAYS',
 ]
-
-// async function getPatientData() {
-//   const token = await AsyncStorage.getItem('@UaiDoto_token')
-//   return jwt_decode(token)
-// }
 
 export default function ScheduleAppointment({ route }) {
   const [date, setDate] = useState(new Date());
@@ -41,11 +36,13 @@ export default function ScheduleAppointment({ route }) {
   }, [date])
 
   function handleConfirm() {
-    // console.log(doctor.id)
     getPatientData()
       .then(({ sub: patientId }) => {
         const dateTime = date
-        dateTime.setHours(time.split(':')[0], time.split(':')[1], 0)
+        dateTime.setHours(+time.split(':')[0] - 3, time.split(':')[1], 0)
+        console.log('dateTime', dateTime)
+        console.log('time', time)
+        console.log(time.split(':')[0], time.split(':')[1], 0)
 
         createAppointments({
           doctorId: doctor.id,

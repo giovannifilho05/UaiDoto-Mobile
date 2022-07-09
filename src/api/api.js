@@ -45,7 +45,6 @@ api.interceptors.response.use(
           AsyncStorage.removeItem("refreshToken");
 
           alert("Suas credenciais expiraram, faça login novamente.");
-          window.location.href = "/";
         });
     }
     console.log(error);

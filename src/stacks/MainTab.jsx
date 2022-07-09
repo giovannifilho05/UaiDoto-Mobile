@@ -8,6 +8,7 @@ import Appointments from '../screens/Appointments'
 import Profile from '../screens/Profile'
 import MyMedicines from '../screens/MyMedicines'
 import ScheduleAppointment from '../screens/ScheduleAppointment'
+import ViewAppointment from '../screens/ViewAppointment'
 
 import { theme } from '../theme'
 
@@ -27,6 +28,11 @@ export default () => (
       name='ScheduleAppointment'
       component={ScheduleAppointment}
       options={{ headerTitle: 'Agende a sua consulta' }}
+    />
+    <Tab.Screen
+      name='ViewAppointment'
+      component={ViewAppointment}
+      options={{ headerTitle: 'Sua consulta' }}
     />
     <Tab.Screen
       name="Appointments"

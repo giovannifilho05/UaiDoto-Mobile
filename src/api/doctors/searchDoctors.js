@@ -1,6 +1,6 @@
 import api from "../api";
 
-export default async function search(data = {}) {
+export default async function searchDoctors(data = {}) {
     const result = await api.get('/users/doctors', data)
 
     console.log(`searchDoctors > Status ${result.status}`)

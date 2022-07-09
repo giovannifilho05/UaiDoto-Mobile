@@ -11,29 +11,37 @@ export const Content = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 `
+
+
 
 export const DoctorInfo = styled.View`
   width: 70%;
-  /* border: ${props => props.theme.main}; */
-  border-right-width: 1px;
-  border-right-color:${props => props.theme.main};
 `
 export const Status = styled.Text`
   width: 100px;
-  background-color: #06A94D;
+  background-color: ${props => props.statusColor || '#E5C33B'};
   color: white;
   text-align: center;
   border-radius: 10px;
 `
 export const DoctorName = styled.Text`
-  margin: 10px 0;
+  margin: 10px 0 2px 0;
   font-size: 18px;
   color: ${(props) => props.theme.main};
-`
+` 
+
+
 
 export const DateInfo = styled.View`
-  flex: 1;
   height: 100%;
-  background-color: red;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+`
+
+export const Time = styled.View`
+  margin: 0 5px 0 5px;
 `

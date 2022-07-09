@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "./api";
 
 export default async function getUser(userId) {
   const result = await api.get(`/users/${userId}`)
