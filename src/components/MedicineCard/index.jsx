@@ -23,7 +23,7 @@ export default function MedicineCard({ medicine, onTakingMedicine }) {
 
   const lastTakenDose = new Date(medicine.lastTakenDose)
   const nextDoseDate = new Date(medicine.lastTakenDose)
-  nextDoseDate.setHours(lastTakenDose.getHours() + medicine.gap)
+  nextDoseDate.setHours(lastTakenDose.getHours() + medicine.gap + 3)
 
   return (
     <Container>
